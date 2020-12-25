@@ -1,0 +1,28 @@
+.new-file{
+
+    margin-bottom: 50px;
+    
+    .info{
+        min-height: 20vh;
+        margin: 10px;
+        // border: 1px solid #ccc;
+        box-shadow: 3px 3px 20px 3px #aaa;
+        // border-radius: 10px;
+
+        .card-header{
+            display: flex;
+
+            .title{
+                width: 50%;
+                font-size: 1.2rem;
+            }
+
+            .buttons{
+                // margin-left: auto;
+                text-align: right;
+                width: 50%;
+            }
+        }
+    }
+
+}
