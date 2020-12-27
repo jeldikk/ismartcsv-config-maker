@@ -15,7 +15,7 @@ export class OutputInfo extends Component {
                     </span>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text>This is output info</Card.Text>
+                    <Card.Text className="text-center">This is output info</Card.Text>
                 </Card.Body>
             </Card>
         )

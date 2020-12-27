@@ -14,7 +14,7 @@ export class InterpolationInfo extends Component {
                     </span>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text>Interpolation info goes here</Card.Text>
+                    <Card.Text className="text-center">Interpolation info goes here</Card.Text>
                 </Card.Body>
             </Card>
         )
