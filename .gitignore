@@ -1,2 +1,8 @@
 /node_modules
 /docs
+
+
+#folders created during packaging
+
+/builds
+/dist

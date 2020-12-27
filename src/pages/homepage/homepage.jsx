@@ -5,8 +5,10 @@ import {Button} from "react-bootstrap"
 
 import "./homepage.scss"
 
+import StatusBar from "../../components/statusbar/statusbar.component"
+
 const HomePage = (props) => {
-    console.log({propsHomepage: props});
+    // console.log({propsHomepage: props});
     return (
         <div className="homepage text-center">
             <div className="content">
@@ -30,6 +32,7 @@ const HomePage = (props) => {
             {/* <Button variant="warning">
                 <Link to="/new-file">click here for something</Link>
             </Button> */}
+            <StatusBar />
         </div>
     )
 }

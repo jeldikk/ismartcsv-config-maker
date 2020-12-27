@@ -16,10 +16,10 @@ function EncodersInfo() {
       </Card.Header>
       <Card.Body>
         {Object.keys(ENCODERS_INFO).map((keyname) => {
-          return;
+          return(
           <code key={keyname} className="d-block">
             {`${keyname} : ${ENCODERS_INFO[keyname]}`}
-          </code>;
+          </code>);
         })}
       </Card.Body>
     </Card>

@@ -4,6 +4,8 @@ import {Card, Button} from "react-bootstrap"
 
 import FieldCard from "../field-card/field-card.component"
 
+import "./fields-info.styles.scss"
+
 export class FieldsInfo extends Component {
     render() {
         return (
@@ -16,6 +18,10 @@ export class FieldsInfo extends Component {
                 </Card.Header>
                 <Card.Body>
                     <FieldCard />
+                    <FieldCard />
+                    <FieldCard />
+                    <FieldCard />
+                    
                 </Card.Body>
             </Card>
         )

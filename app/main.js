@@ -1,13 +1,18 @@
 'use strict'
 
 // Import parts of electron to use
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const {ChannelTypes} = require("./electron/channels-types.js")
+
+// import ChannelTypes from "./electron/channels-types"
+// console.log({ChannelTypes})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
+let modalWindow;
 
 // Keep a reference for dev mode
 let dev = false
@@ -35,7 +40,8 @@ function createWindow() {
     height: 790,
     show: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   })
 
@@ -52,7 +58,7 @@ function createWindow() {
   } else {
     indexPath = url.format({
       protocol: 'file:',
-      pathname: path.join(__dirname, 'dist', 'index.html'),
+      pathname: path.join(__dirname, '..', 'dist', 'index.html'),
       slashes: true
     })
   }
@@ -82,6 +88,71 @@ function createWindow() {
   })
 }
 
+function createModalWindow(options){
+
+  modalWindow = new BrowserWindow({
+    parent: mainWindow,
+    width: 400,
+    height: 400,
+    modal: options.modal,
+    show: false,
+    title: options.title,
+    webPreferences:{
+      nodeIntegration: true,
+      
+    }
+  });
+
+  // modalWindow.setMenu(null)
+
+  let urlPath;
+
+  if(dev && process.argv.indexOf('--noDevServer') === -1) {
+    urlPath = url.format({
+      protocol: 'http:',
+      host: 'localhost:8080',
+      pathname: 'index.html',
+      hash: options.hash,
+      slashes: true
+    })
+  }
+  else{
+    urlPath = url.format({
+      protocol: 'file:',
+      pathname: path.join(__dirname,"..",'dist','index.html'),
+      slashes: true,
+      hash:"/new-file",
+
+
+    })
+  }
+  console.log({urlPath})
+
+  modalWindow.loadURL(urlPath);
+
+  modalWindow.once('ready-to-show',()=>{
+    modalWindow.show()
+
+      // Open the DevTools automatically if developing
+    if (dev) {
+      const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
+
+      installExtension(REACT_DEVELOPER_TOOLS)
+        .catch(err => console.log('Error loading React DevTools: ', err))
+      mainWindow.webContents.openDevTools()
+    }
+  })
+
+  modalWindow.on('closed', ()=>{
+    // console.log('closed event called on modalWindow')
+    modalWindow = null;
+  })
+
+  
+
+
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -102,4 +173,17 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+
+ipcMain.on(ChannelTypes.OPEN_MODAL_DIALOG,(event, data)=>{
+
+  let options = {
+    modal: true,
+    hash: data.hash,
+    title: data.title
+  }
+
+  createModalWindow(options);
+
 })

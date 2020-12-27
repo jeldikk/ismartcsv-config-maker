@@ -7,7 +7,7 @@ import OutputInfo from "../../components/output-info/output-info.component"
 import PlotsInfo from "../../components/plots-info/plots-info.components"
 import ParsersInfo from "../../components/parsers-info/parsers-info.component"
 import EncodersInfo from '../../components/encoders-info/encoders-info.components'
-
+import StatusBar from "../../components/statusbar/statusbar.component"
 import "./new-file.styles.scss"
 
 const NewFilePage = () => {
@@ -20,6 +20,7 @@ const NewFilePage = () => {
             <PlotsInfo />
             <ParsersInfo />
             <EncodersInfo />
+            <StatusBar />
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap'
 
+import PARSERS_INFO from "./parsers-info.data"
+
 export class ParsersInfo extends Component {
     render() {
         return (
@@ -12,7 +14,15 @@ export class ParsersInfo extends Component {
                     </span>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text>this is parsers info</Card.Text>
+                    {
+                        Object.keys(PARSERS_INFO).map((keyname) => {
+                            return (
+                                <code key={keyname} className="d-block">
+                                    {`${keyname} : ${PARSERS_INFO[keyname]}`}
+                                </code>
+                            )
+                        })
+                    }
                 </Card.Body>
             </Card>
         )
